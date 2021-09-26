@@ -5,10 +5,14 @@ var Expense = require('../models/expenses');
 var Income = require('../models/income');
 
 router.get('/', (req, res) => {
+  console.log(req.query.source);
   User.findById(req.session.userId)
-    .populate('expenseId', 'incomeId')
-    .exec((err, user) => {
-      console.log(user);
+    .populate('incomeId')
+    .exec((err, users) => {
+      let incomes = [];
+      let expenses = [];
+      let balance = 0;
+      console.log(users);
       res.render('dashboard');
     });
 });
@@ -18,8 +22,25 @@ router.post('/filterdate', (req, res, next) => {
   console.log(req.body);
   Income.find(
     { date: { $gt: new Date(startDate), $lt: new Date(endDate) } },
-    (err, data) => {
+    (err, incomes) => {
+      if (err) return next(err);
       console.log(data);
+      Expense.find(
+        { date: { $gt: new Date(startDate), $lt: new Date(endDate) } },
+        (err, expenses) => {
+          if (err) return next(err);
+          let sumOfExpenses = expenses.reduce(
+            (acc, curr) => acc + Number(curr.amount),
+            0
+          );
+          let sumOfIncomes = incomes.reduce(
+            (acc, curr) => acc + Number(curr.amount),
+            0
+          );
+          let balance = sumOfIncomes - sumOfExpenses;
+          res.render('dashboard', { incomes, expenses, balance });
+        }
+      );
     }
   );
 });
