@@ -4,20 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Document</title>
   </head>
   <body>
-    <header></header>
+    <header>
+      <div>
+      </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="/users/login"
+                ><button class="btn1" type="submit">Login</button></a
+              >
+            </li>
+          </ul>
+    </header>
     <main>
-      <form method="POST" action="/users/register">
-        <input type="text" placeholder="name" name="name" />
-        <input type="email" placeholder="email" name="email" />
-        <input type="password" placeholder="password" name="password" />
-        <input type="number" placeholder="age" name="age" />
-        <input type="tel" placeholder="phone no" name="phone" />
-        <input type="text" placeholder="country" name="country" />
-        <button type="submit">Register</button>
-      </form>
+      <div class="box">
+        <form method="POST" action="/users/register">
+          <input type="text" placeholder="name" name="name" class="input" />
+          <input type="email" placeholder="email" name="email" class="input"/>
+          <input type="password" placeholder="password" name="password" class="input"/>
+          <input type="number" placeholder="age" name="age" class="input"/>
+          <input type="tel" placeholder="phone no" name="phone" class="input"/>
+          <input type="text" placeholder="country" name="country" class="input"/>
+          <button type="submit" class="btn2">Register</button>
+        </form>
+      </div>
+     
     </main>
   </body>
 </html>

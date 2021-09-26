@@ -8,8 +8,8 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientID: process.env.GIT_CLIENT_ID,
+      clientSecret: process.env.GIT_CLIENT_SECRET,
       callbackURL: '/auth/github/callback',
     },
     (accessToken, refreshToken, profile, done) => {
@@ -18,7 +18,6 @@ passport.use(
         name: profile.displayName,
         username: profile.username,
         email: profile._json.email,
-        profilePic: profile._json.avatar_url,
       };
 
       User.findOne({ email: profile._json.email }, (err, user) => {
@@ -42,8 +41,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
@@ -52,7 +51,6 @@ passport.use(
         name: profile.displayName,
         username: profile._json.name,
         email: profile._json.email,
-        profilePic: profile._json.picture,
       };
 
       User.findOne({ email: profile._json.email }, (err, user) => {
