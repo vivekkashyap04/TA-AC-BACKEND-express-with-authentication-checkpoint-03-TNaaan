@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div>
+      </div>
+        <nav>
+          <ul class="ul">
+            <li>
+              <a href="/users/register"
+                ><button class="btn1" type="submit">register</button></a
+              >
+            </li>
+            <li>
+              <a href="/users/forgetpassword"
+                ><button class="btn1" type="submit">Forget Password</button></a
+              >
+            </li>
+          </ul>
+     
+    </header>
+    <main>
+      <section class="login-section">
+        <div class="box">
+          <form method="POST" action="/users/login">
+            <% if(error) { %>
+              <p><%= error %></p>
+          <% } %>
+            <input type="email" placeholder="email" name="email" class="input"/>
+            <input type="password" placeholder="password" name="password" class="input"/>
+            <button type="submit" class="btn2">Login</button>
+          </form>
+        </div>
+        <div class="box">
+            <a href="/auth/github"><button class="btn2" type="submit">Login with Github</button></a>
+        </div>
+        <div class="box"> 
+          <a href="/auth/google"><button class="btn2" type="submit">Login with Google</button></a>
+        </div>
+      </section>
+     
+    </main>
+  </body>
+</html>

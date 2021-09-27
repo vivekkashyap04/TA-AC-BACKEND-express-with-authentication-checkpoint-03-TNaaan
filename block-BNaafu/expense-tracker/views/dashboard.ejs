@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h3>vivek</h3>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="/users"
+              ><button type="submit" class="btn1">Back</button></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>filter by date</h2>
+      <form action="/dashboard/filterdate" method="POST">
+        <input type="date" placeholder="startdate" name="startDate" />
+        <input type="date" placeholder="enddate" name="endDate" />
+        <button type="submit">search</button>
+      </form>
+      <div>
+        <select id="month">
+          <option value="1">
+            <a href="/dashboard/?month=1">January</a>
+          </option>
+          <option value="2"><a href="/dashboard/?month=2">Feb</a></option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+        </select>
+      </div>
+      <div>
+        <% if(balance > 0){ %>
+        <h2>Balance of CurrentMonth:<%= balance %></h2>
+        <% } %> <% if(currentmonthExp.length > 0) {%>
+        <h2>CurrentMonth Expenditure:<%= currentmonthExp[0].total %></h2>
+        <% } %>
+      </div>
+      <ul>
+        <h2>List of Incomes</h2>
+        <% incomes.forEach(income => { %>
+        <li><%= income.income %></li>
+        <% }) %>
+      </ul>
+    </main>
+  </body>
+</html>

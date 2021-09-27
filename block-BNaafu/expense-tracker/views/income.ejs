@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="/dashboard">Dashboard</a>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="/users"
+              ><button type="submit" class="btn1">Back</button></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="box">
+        <form method="POST" action="/incomes">
+          <input
+            type="name"
+            placeholder="enter name of income"
+            name="income"
+            class="input"
+          />
+          <input
+            type="text"
+            placeholder="enter source"
+            name="source"
+            class="input"
+          />
+          <input
+            type="number"
+            placeholder="amount"
+            name="amount"
+            class="input"
+          />
+          <input type="date" placeholder="date" name="date" class="input" />
+          <button type="submit" class="btn2">Add Income</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
