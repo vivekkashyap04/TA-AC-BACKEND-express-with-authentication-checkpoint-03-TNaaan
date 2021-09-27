@@ -4,6 +4,9 @@ var User = require('../models/user');
 var Expense = require('../models/expenses');
 var Income = require('../models/income');
 var moment = require('moment');
+var auth = require('../middleware/auth');
+
+router.use(auth.loggedInUser);
 
 router.get('/', (req, res) => {
   console.log(req.query, 'query');

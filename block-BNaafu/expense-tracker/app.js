@@ -16,6 +16,7 @@ var usersRouter = require('./routes/users');
 var incomerouter = require('./routes/income');
 var expenserouter = require('./routes/expenses');
 var dashboardrouter = require('./routes/dashboard');
+var auth = require('./middleware/auth');
 const { env } = require('process');
 
 var app = express();
@@ -50,6 +51,8 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(auth.loggedInUser);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
