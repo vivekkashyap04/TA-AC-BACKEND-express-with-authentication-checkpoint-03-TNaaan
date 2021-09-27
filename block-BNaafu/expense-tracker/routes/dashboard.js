@@ -103,3 +103,20 @@ router.post('/filterdate', (req, res, next) => {
 });
 
 module.exports = router;
+
+// Income.aggregate([
+//   { $project: { income: 1, dateofmonth: { $month: '$date' } } },
+//   { $match: { dateofmonth: 09 } },
+// ]).exec((err, month) => {
+//   console.log(month);
+// });
+// Expense.aggregate([
+//   { $group: { _id: 'amount', total: { $sum: '$amount' } } },
+// ]).exec((err, amount) => {
+//   console.log(amount[0].total, 'amount');
+//   Income.aggregate([
+//     { $group: { _id: 'amount', total: { $sum: '$amount' } } },
+//   ]).exec((err, income) => {
+//     console.log(income[0].total, 'amount');
+//   });
+// });

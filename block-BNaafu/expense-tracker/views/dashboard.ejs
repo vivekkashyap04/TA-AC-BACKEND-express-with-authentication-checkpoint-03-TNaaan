@@ -10,7 +10,7 @@
   <body>
     <header>
       <div>
-        <h3>User Name<%= users.name %></h3>
+        <h3>vivek</h3>
       </div>
       <nav>
         <ul>
@@ -23,40 +23,38 @@
       </nav>
     </header>
     <main>
-      <h2>List of Incomes</h2>
-      <ul>
-        <% users.incomeId.forEach(income => { %>
-        <li>
-          <a href="/dashboard/?source=<%= income.source %>"
-            ><%= income.source %></a
-          >
-        </li>
-        <% }) %>
-      </ul>
       <h2>filter by date</h2>
       <form action="/dashboard/filterdate" method="POST">
         <input type="date" placeholder="startdate" name="startDate" />
         <input type="date" placeholder="enddate" name="endDate" />
         <button type="submit">search</button>
       </form>
-
-      <section>
-        <% if(incomes.length > 0){ %> <% incomes.forEach(income => { %>
-        <div>
-          <h2><%= income.income %></h2>
-          <h2><%= income.amount %></h2>
-        </div>
-
-        <% }) %> <% expenses.forEach(expense => { %>
-        <div>
-          <h2><%= expense.category %></h2>
-          <h2><%= expense.amount %></h2>
-        </div>
-
-        <% }) %> <% if(balance) {%>
-        <h2>Balance: <span><%= balance %></span></h2>
+      <div>
+        <select id="month">
+          <option value="1">
+            <a href="/dashboard/?month=1">January</a>
+          </option>
+          <option value="2"><a href="/dashboard/?month=2">Feb</a></option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+        </select>
+      </div>
+      <div>
+        <% if(balance > 0){ %>
+        <h2>Balance of CurrentMonth:<%= balance %></h2>
+        <% } %> <% if(currentmonthExp.length > 0) {%>
+        <h2>CurrentMonth Expenditure:<%= currentmonthExp[0].total %></h2>
         <% } %>
-      </section>
+      </div>
+      <ul>
+        <h2>List of Incomes</h2>
+        <% incomes.forEach(income => { %>
+        <li><%= income.income %></li>
+        <% }) %>
+      </ul>
     </main>
   </body>
 </html>

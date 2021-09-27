@@ -5,13 +5,14 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     name: String,
+    username: String,
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
     age: Number,
     phone: Number,
     country: String,
-    incomeId: [{ type: Schema.Types.ObjectId, ref: 'Income' }],
-    expenseId: [{ type: Schema.Types.ObjectId, ref: 'Expense' }],
+    isVerified: { type: Boolean, default: false },
+    image: String,
   },
   { timestamps: true }
 );

@@ -23,6 +23,9 @@
     <main>
       <div class="box">
         <form method="POST" action="/users/register">
+          <% if(error) { %>
+            <p class="text-red-500 "><%= error %></p>
+        <% } %>
           <input type="text" placeholder="name" name="name" class="input" />
           <input type="email" placeholder="email" name="email" class="input"/>
           <input type="password" placeholder="password" name="password" class="input"/>

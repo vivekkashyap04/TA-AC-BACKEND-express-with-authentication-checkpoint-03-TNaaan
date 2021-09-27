@@ -1,5 +1,5 @@
 const { session } = require('passport');
-var User = require('../models/User');
+var User = require('../models/user');
 
 module.exports = {
   loggedInUser: (req, res, next) => {
