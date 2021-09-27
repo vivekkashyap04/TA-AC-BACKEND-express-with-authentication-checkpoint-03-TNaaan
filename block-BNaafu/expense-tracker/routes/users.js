@@ -3,24 +3,29 @@ var router = express.Router();
 var User = require('../models/user');
 var Income = require('../models/income');
 var nodemailer = require('nodemailer');
+const income = require('../models/income');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   if (req.session.userId) {
-    var income = Income.aggregate([
-      { $project: { income: 1, dateofmonth: { $month: '$date' } } },
-      { $match: { dateofmonth: 09, userId: req.session.userId } },
-    ]);
-    console.log(income, 'income');
     res.render('onboarding');
   }
 });
 
 //register
 
+const randomString = () => {
+  let str = '';
+  for (var i = 0; i <= 8; i++) {
+    const ch = Math.floor(Math.random() * 10 + 1);
+    str += ch;
+  }
+  return str;
+};
+
 router.get('/register', function (req, res, next) {
   var error = req.flash('error')[0];
-  res.render('register');
+  res.render('register', { error });
 });
 
 router.post('/register', function (req, res, next) {
@@ -36,45 +41,44 @@ router.post('/register', function (req, res, next) {
     } else {
       User.create(req.body, (err, data) => {
         if (err) return next(err);
-        // Send email (use credintials of SendGrid)
         var transporter = nodemailer.createTransport({
-          service: 'Sendgrid',
+          service: 'Gmail',
           auth: {
             user: 'vivekk8211@gmail.com',
             pass: process.env.PASSWORD,
           },
         });
         var mailOptions = {
-          from: 'vivekk8211@gmail.com.com',
-          to: user.email,
+          from: 'vivekk8211@gmail.com',
+          to: data.email,
           subject: 'Account Verification Link',
-          text:
-            'Hello ' +
-            req.body.name +
-            ',\n\n' +
-            'Please verify your account by clicking the link: \nhttp://' +
-            req.headers.host +
-            '/confirmation/' +
-            user.email +
-            '/' +
-            '\n\nThank You!\n',
+          html: `please verify your email account by clicking this link <a href="http://localhost:3000/users/verify/${data._id}>here</a>to verify your email thanks`,
         };
         transporter.sendMail(mailOptions, function (err) {
           if (err) {
-            return res.status(500).send({
-              msg: 'Some error occur',
-            });
+            console.log(err, 'error');
           } else {
-            req.flash(
-              'success',
-              'A verification email has been sent to ' +
-                user.email +
-                '. It will expire after some time'
-            );
-            res.redirect('/users/login');
+            console.log('success');
           }
         });
+        res.redirect('/users/login');
       });
+    }
+  });
+});
+
+router.get('/verify/:id', async (req, res, next) => {
+  var id = req.params.id;
+  console.log(id);
+  console.log(req.params);
+  await User.findById(id, (err, user) => {
+    console.log(user);
+    if (user) {
+      user.isVerified = true;
+      user.save();
+      res.redirect('/users/login');
+    } else {
+      res.redirect('/users/register');
     }
   });
 });

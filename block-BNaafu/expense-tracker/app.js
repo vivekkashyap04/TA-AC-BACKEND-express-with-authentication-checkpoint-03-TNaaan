@@ -19,6 +19,7 @@ var dashboardrouter = require('./routes/dashboard');
 const { env } = require('process');
 
 var app = express();
+require('./modules/passport');
 
 mongoose.connect('mongodb://localhost/expenses', (err) => {
   console.log(err ? err : 'database connected');

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const incomeSchema = new Schema(
   {
-    income: Number,
+    income: String,
     source: [String],
     amount: Number,
     date: { type: Date, required: true },

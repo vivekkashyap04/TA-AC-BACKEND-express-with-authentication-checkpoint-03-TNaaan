@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', (req, res, next) => {
   req.body.userId = req.session.userId;
+  req.body.category = req.body.category.trim().split(',');
   Expense.create(req.body, (err, expense) => {
     if (err) return next(err);
     User.findByIdAndUpdate(

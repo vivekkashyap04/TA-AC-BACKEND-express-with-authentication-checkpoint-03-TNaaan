@@ -10,6 +10,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', (req, res, next) => {
   req.body.userId = req.session.userId;
+  req.body.source = req.body.source.trim().split(',');
   Income.create(req.body, (err, income) => {
     if (err) return next(err);
     User.findByIdAndUpdate(

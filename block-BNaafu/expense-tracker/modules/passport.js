@@ -13,25 +13,28 @@ passport.use(
       callbackURL: '/auth/github/callback',
     },
     (accessToken, refreshToken, profile, done) => {
-      // console.log(profile);
+      console.log(profile);
       var profileData = {
         name: profile.displayName,
         username: profile.username,
-        email: profile._json.email,
+        email: profile._json.email || profile.username,
       };
 
-      User.findOne({ email: profile._json.email }, (err, user) => {
-        if (err) return done(err);
-        // console.log(user);
-        if (!user) {
-          User.create(profileData, (err, addedUser) => {
-            if (err) return done(err);
-            return done(null, addedUser);
-          });
-        } else {
-          done(null, user);
+      User.findOne(
+        { email: profile._json.email || profile.username },
+        (err, user) => {
+          if (err) return done(err);
+          // console.log(user);
+          if (!user) {
+            User.create(profileData, (err, addedUser) => {
+              if (err) return done(err);
+              return done(null, addedUser);
+            });
+          } else {
+            done(null, user);
+          }
         }
-      });
+      );
     }
   )
 );
